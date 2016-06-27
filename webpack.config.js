@@ -24,7 +24,16 @@ module.exports = {
     module: {
         loaders: [
             { test: /\.css$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader") },
-            { test: /\.js?$/, include: PATHS.app, loader: "babel-loader", query: { presets: ['es2015', 'react']} }
+            { test: /\.js?$/, include: PATHS.app, loader: "babel-loader", query: { presets: ['es2015', 'react']} },
+
+            { test: /\.(jpg|jpe?g|gif|png)$/, exclude: /node_modules/, loader:'url-loader?limit=5000&name=images/img-[hash:6].[ext]' },
+
+            { test: /\.woff(\?.*)?$/,  loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff' },
+            { test: /\.woff2(\?.*)?$/, loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff2' },
+            { test: /\.otf(\?.*)?$/,   loader: 'file?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=font/opentype' },
+            { test: /\.ttf(\?.*)?$/,   loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/octet-stream' },
+            { test: /\.eot(\?.*)?$/,   loader: 'file?prefix=fonts/&name=[path][name].[ext]' },
+            { test: /\.svg(\?.*)?$/,   loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=image/svg+xml' }
         ]
     },
     devServer: {
@@ -37,6 +46,15 @@ module.exports = {
         host: process.env.HOST
     },
     plugins: [
-        new ExtractTextPlugin("[name].css")
+        new ExtractTextPlugin("[name].css"),
+        //new webpack.optimize.OccurrenceOrderPlugin(),
+        //new webpack.optimize.DedupePlugin(),
+        //new webpack.optimize.UglifyJsPlugin({
+        //    compress: {
+        //        unused: true,
+        //        dead_code: true,
+        //        warnings: false
+        //    }
+        //})
     ]
 };

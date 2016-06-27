@@ -54,16 +54,22 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
+	var _Duck = __webpack_require__(172);
+
+	var _Duck2 = _interopRequireDefault(_Duck);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	__webpack_require__(172);
+	__webpack_require__(173);
 
 	var app = document.createElement('div');
 	document.body.appendChild(app);
 	_reactDom2.default.render(_react2.default.createElement(
 	  'div',
 	  { className: 'main' },
-	  ' main '
+	  ' main ',
+	  _react2.default.createElement('img', { src: _Duck2.default }),
+	  ' '
 	), app);
 
 /***/ },
@@ -20365,6 +20371,12 @@
 /* 170 */,
 /* 171 */,
 /* 172 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "images/img-1b9b7f.jpg";
+
+/***/ },
+/* 173 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin

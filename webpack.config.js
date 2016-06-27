@@ -1,5 +1,6 @@
 var path = require('path');
 var HtmlwebpackPlugin = require('html-webpack-plugin');
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 const TARGET = process.env.npm_lifecycle_event;
 process.env.BABEL_ENV = TARGET;
@@ -12,17 +13,17 @@ const PATHS = {
 };
 
 module.exports = {
-    entry: PATHS.app + '/main.js',
-    resolve: {
-        extensions: ['','.js', '.jsx']
+    entry: {
+        main: PATHS.app + '/main',
+        hello: PATHS.app + '/hello'
     },
     output: {
         path: PATHS.build,
-        filename: 'main.js'
+        filename: "[name].js"
     },
     module: {
         loaders: [
-            { test: /\.css$/,  include: PATHS.app, loaders: ['style-loader','css-loader'] },
+            { test: /\.css$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader") },
             { test: /\.js?$/, include: PATHS.app, loader: "babel-loader", query: { presets: ['es2015', 'react']} }
         ]
     },
@@ -36,14 +37,6 @@ module.exports = {
         host: process.env.HOST
     },
     plugins: [
-        new HtmlwebpackPlugin({
-            title: 'React-Webpack-Babel Starter 2'
-        }),
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.DefinePlugin({
-            'process.env': {
-                'NODE_ENV': JSON.stringify('production')
-            }
-        })
+        new ExtractTextPlugin("[name].css")
     ]
 };
